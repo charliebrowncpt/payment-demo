@@ -1,6 +1,10 @@
 <Solution>
   <Folder Name="/acme-pay/">
-    <Project Path="./acme-pay/AcmePay.csproj" />
+    <Project Path="acme-pay/AcmePay.csproj" />
   </Folder>
-  <Project Path="./payment-demo/PaymentDemo.csproj" />
+
+  <Folder Name="/payment-demo/">
+    <Project Path="payment-demo/PaymentsDemo.Api/PaymentDemo.csproj" />
+    <Project Path="payment-demo/PaymentsDemo.Tests/PaymentsDemo.Tests.csproj" />
+  </Folder>
 </Solution>

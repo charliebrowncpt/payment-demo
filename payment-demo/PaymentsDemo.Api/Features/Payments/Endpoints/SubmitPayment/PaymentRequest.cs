@@ -1,7 +1,7 @@
 using FastEndpoints;
 using FluentValidation;
 
-namespace AcmePay.Endpoints.Payments.SubmitPayment;
+namespace PaymentDemo.Features.Payments.Endpoints.SubmitPayment;
 
 // Acme uses PascalCase on the payment API and camelCase on the Transaction Status
 // webhook; FastEndpoints reads both case-insensitively. Unknown fields are ignored.

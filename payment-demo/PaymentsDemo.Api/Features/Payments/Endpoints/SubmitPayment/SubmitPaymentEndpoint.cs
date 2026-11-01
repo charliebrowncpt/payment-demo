@@ -2,10 +2,10 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using AcmePay.Endpoints.Payments.DTOs;
 using FastEndpoints;
+using PaymentsDemo.Api.Shared.Requests;
 
-namespace AcmePay.Endpoints.Payments.SubmitPayment;
+namespace PaymentDemo.Features.Payments.Endpoints.SubmitPayment;
 
 // POST /api/payment -> forwards to Acme's POST /api/payment
 public sealed class SubmitPaymentEndpoint(
@@ -26,11 +26,11 @@ public sealed class SubmitPaymentEndpoint(
 
     public override async Task HandleAsync(PaymentRequest req, CancellationToken ct)
     {
-        PaymentEnvelope envelope = new(
+        PaymentEnvelope<PaymentRequest> envelope = new(
             new MessageHeader(
-                DateTimeOffset.UtcNow.AddHours(2).ToString("yyyy-MM-dd'T'HH:mm:ss.fff"), // SAST, no offset
-                Guid.NewGuid().ToString(),                                          // unique per message
-                "Web"
+                MessageDateTime: DateTimeOffset.UtcNow.AddHours(2).ToString("yyyy-MM-dd'T'HH:mm:ss.fff"), // SAST, no offset
+                MessageId: Guid.NewGuid().ToString(),// unique per message
+                Channel: "Web"
             ),
         req);
 

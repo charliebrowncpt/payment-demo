@@ -5,15 +5,15 @@ namespace AcmePay.Features.Payments.SubmitPayment;
 public record Card(string Token);
 
 public record PaymentRequest(
-    string MerchantID,
-    string TransactionID,
+    string MerchantId,
+    string TransactionId,
     string OrderNumber,
     long Amount,
     string PaymentService,             // CardNotPresent | CardNotPresentRecurring | AcmeEft | GooglePay | ApplePay
     Card? Card = null,                 // required on card services
     string? CurrencyCode = null,       // optional, ZAR when omitted
     string? CardOnFileScenario = null, // CIT | MIT
-    string? SubMerchantID = null,
+    string? SubMerchantId = null,
     string? MerchantCategoryCode = null,
     string? CardAcceptorName = null,
     string? Email = null

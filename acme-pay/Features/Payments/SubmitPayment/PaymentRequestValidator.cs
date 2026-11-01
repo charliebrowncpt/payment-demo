@@ -33,9 +33,9 @@ public sealed class PaymentRequestValidator : AbstractValidator<PaymentRequest>
 
     public PaymentRequestValidator()
     {
-        RuleFor(x => x.MerchantID).NotEmpty().MaximumLength(50);
+        RuleFor(x => x.MerchantId).NotEmpty().MaximumLength(50);
 
-        RuleFor(x => x.TransactionID).NotEmpty().MaximumLength(50);
+        RuleFor(x => x.TransactionId).NotEmpty().MaximumLength(50);
         
         RuleFor(x => x.OrderNumber)
             .NotEmpty()
@@ -67,7 +67,7 @@ public sealed class PaymentRequestValidator : AbstractValidator<PaymentRequest>
         RuleFor(x => x.Email).MaximumLength(254);
 
         // Payment facilitator fields
-        RuleFor(x => x.SubMerchantID).MaximumLength(15);
+        RuleFor(x => x.SubMerchantId).MaximumLength(15);
         RuleFor(x => x.MerchantCategoryCode)
             .Length(4)
             .When(x => x.MerchantCategoryCode is not null);
