@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/acme-pay/">
+    <Project Path="./acme-pay/AcmePay.csproj" />
+  </Folder>
+  <Project Path="./payment-demo/PaymentDemo.csproj" />
+</Solution>

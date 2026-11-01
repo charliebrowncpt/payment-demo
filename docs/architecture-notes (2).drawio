@@ -1,0 +1,386 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="fB2LQyUHLYia289Cf2oP">
+    <mxGraphModel dx="2500" dy="1187" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="life-app" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;sequenceEdgeStyle&quot;,&quot;libavoidRouting&quot;:0,&quot;curved&quot;:0,&quot;rounded&quot;:0};" value=":Zapper App" vertex="1">
+          <mxGeometry height="2343" width="100" x="-270" y="-160" as="geometry" />
+        </mxCell>
+        <mxCell id="life-api" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;sequenceEdgeStyle&quot;,&quot;libavoidRouting&quot;:0,&quot;curved&quot;:0,&quot;rounded&quot;:0};strokeColor=light-dark(#000000,#33FF33);" value=":Zapper Backend" vertex="1">
+          <mxGeometry height="2343" width="100" x="30" y="-160" as="geometry" />
+        </mxCell>
+        <mxCell id="life-db" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;sequenceEdgeStyle&quot;,&quot;libavoidRouting&quot;:0,&quot;curved&quot;:0,&quot;rounded&quot;:0};" value=":Zapper DB" vertex="1">
+          <mxGeometry height="2343" width="100" x="330" y="-160" as="geometry" />
+        </mxCell>
+        <mxCell id="KKIQSCNNdLEmrYlWEJN5-17" parent="life-db" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;sequenceEdgeStyle&quot;,&quot;libavoidRouting&quot;:0,&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="" vertex="1">
+          <mxGeometry height="42" width="10" x="45" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="life-queue" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;sequenceEdgeStyle&quot;,&quot;libavoidRouting&quot;:0,&quot;curved&quot;:0,&quot;rounded&quot;:0};" value=":Payment Queue" vertex="1">
+          <mxGeometry height="2343" width="100" x="630" y="-160" as="geometry" />
+        </mxCell>
+        <mxCell id="life-worker" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;sequenceEdgeStyle&quot;,&quot;libavoidRouting&quot;:0,&quot;curved&quot;:0,&quot;rounded&quot;:0};strokeColor=light-dark(#000000,#33FF33);" value=":Payment Handler (Lamda)" vertex="1">
+          <mxGeometry height="2343" width="130" x="900" y="-160" as="geometry" />
+        </mxCell>
+        <mxCell id="life-acme" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;sequenceEdgeStyle&quot;,&quot;libavoidRouting&quot;:0,&quot;curved&quot;:0,&quot;rounded&quot;:0};strokeColor=light-dark(#000000,#FF3333);" value=":ACME Pay Service" vertex="1">
+          <mxGeometry height="2343" width="100" x="1230" y="-160" as="geometry" />
+        </mxCell>
+        <mxCell id="actor" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;labelPerimeter=1;" value="Actor" vertex="1">
+          <mxGeometry height="60" width="30" x="-480" y="-160" as="geometry" />
+        </mxCell>
+        <mxCell id="e-101" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-465" y="2183" as="sourcePoint" />
+            <mxPoint x="-465" y="-100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-102" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;defaultLabelBackgroundColor=page;" target="life-acme" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-480" y="30" as="sourcePoint" />
+            <mxPoint x="1340" y="30" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v-103" parent="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;rounded=0;fillStyle=solid;fillColor=light-dark(#FFFFFF,#074E78);labelPosition=center;verticalLabelPosition=middle;textDirection=ltr;" value="&amp;nbsp;[1] Create Payment Intention" vertex="1">
+          <mxGeometry height="30" width="200" x="-464" y="31" as="geometry" />
+        </mxCell>
+        <mxCell id="e-104" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="Make Payment()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-465" y="107" as="sourcePoint" />
+            <mxPoint x="-220" y="107" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-108" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="Send PaymentIntent() -&amp;gt; POST /api/v1/payment&lt;br&gt;(PaymentIntent, Idempotency-Key, customerId, merchnantId)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-220" y="215" as="sourcePoint" />
+            <mxPoint x="80" y="215" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-113" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;endSize=8;rounded=0;defaultLabelBackgroundColor=page;" value="Enqueue SubmitPayment (paymentReference)">
+          <mxGeometry relative="1" x="-0.4333" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="80" y="540" as="sourcePoint" />
+            <mxPoint x="680" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-114" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;defaultLabelBackgroundColor=page;align=center;" value="return payment response (json):&lt;div&gt;Fields:&amp;nbsp;&lt;div&gt;status=PENDING,&amp;nbsp;&lt;/div&gt;&lt;div&gt;httpStatusCode=202 (Accepted),&amp;nbsp;&lt;/div&gt;&lt;div&gt;paymentReference&lt;/div&gt;&lt;/div&gt;">
+          <mxGeometry relative="1" x="0.0667" y="-9" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="85" y="560" as="sourcePoint" />
+            <mxPoint x="-215" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-115" edge="1" parent="1" source="life-worker" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;endSize=8;rounded=0;defaultLabelBackgroundColor=page;" value="Consume SubmitPayment()&lt;br&gt;(at-least-once)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="583" as="sourcePoint" />
+            <mxPoint x="680.92" y="560.49" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-116" edge="1" parent="1" source="life-worker" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="POST payment (Idempotency-Key = correlationId,&lt;br&gt;customer + sub-merchant details)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="980" y="637" as="sourcePoint" />
+            <mxPoint x="1280" y="637" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v-117" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=light-dark(#FFF2CC,#4D4220);strokeColor=light-dark(#D6B656,#B89B3C);" value="Acme slow / timeout: keep state PENDING and retry with the SAME Idempotency-Key&lt;br&gt;(backoff with jitter, max attempts which are driven by aws parameter store config).&amp;nbsp;&lt;div&gt;Outcome is then confirmed by webhook or status check (phase 2).&lt;/div&gt;" vertex="1">
+          <mxGeometry height="42" width="560" x="700" y="655" as="geometry" />
+        </mxCell>
+        <mxCell id="e-118" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;defaultLabelBackgroundColor=page;" target="life-worker" value="202 {acmePaymentId, status}">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1280" y="735" as="sourcePoint" />
+            <mxPoint x="980" y="735" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-119" edge="1" parent="1" source="life-worker" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="Update payment(acmePaymentId):&lt;br&gt;state=SUBMITTED + create audit log">
+          <mxGeometry relative="1" x="0.521" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="980" y="789" as="sourcePoint" />
+            <mxPoint x="380" y="789" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-120" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;defaultLabelBackgroundColor=page;" target="life-acme" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-480" y="827" as="sourcePoint" />
+            <mxPoint x="1340" y="827" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v-121" parent="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;rounded=0;fillStyle=solid;fillColor=light-dark(#FFFFFF,#074E78);labelPosition=center;verticalLabelPosition=middle;textDirection=ltr;" value="&amp;nbsp;[2] Payment Succeeded/Failed" vertex="1">
+          <mxGeometry height="30" width="220" x="-464" y="828" as="geometry" />
+        </mxCell>
+        <mxCell id="e-122" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;endSize=8;rounded=0;defaultLabelBackgroundColor=page;" value="Payment Notification Webhook&lt;br&gt;(eventId, acmePaymentId, status, eventTimestamp)">
+          <mxGeometry relative="1" x="0.2333" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="1280" y="918" as="sourcePoint" />
+            <mxPoint x="80" y="918" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-123" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;defaultLabelBackgroundColor=page;" value="200 OK (acknowledge immediately, process after)">
+          <mxGeometry relative="1" x="-0.25" y="8" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="80" y="958" as="sourcePoint" />
+            <mxPoint x="1280" y="958" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v-124" parent="1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;" value="" vertex="1">
+          <mxGeometry height="30" width="10" x="75" y="984" as="geometry" />
+        </mxCell>
+        <mxCell id="e-125" edge="1" parent="1" style="html=1;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="988" />
+              <mxPoint x="120" y="1010" />
+            </Array>
+            <mxPoint x="85" y="988" as="sourcePoint" />
+            <mxPoint x="85" y="1010" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v-126" parent="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;rounded=0;" value="Verify webhook signature" vertex="1">
+          <mxGeometry height="22" width="330" x="125" y="980" as="geometry" />
+        </mxCell>
+        <mxCell id="e-127" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="Reconcile payment (single transaction):&lt;br&gt;1. insert eventId, skip if already seen (duplicate)&lt;br&gt;2. apply only allowed state transitions, ignore stale events&lt;br&gt;3. update state, approval_date, payment reference&lt;br&gt;4. create audit log for payment">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="1102" as="sourcePoint" />
+            <mxPoint x="380" y="1102" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v-128" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=light-dark(#FFF2CC,#4D4220);strokeColor=light-dark(#D6B656,#B89B3C);" value="State machine: PENDING -&amp;gt; SUBMITTED -&amp;gt; SUCCEEDED | FAILED&lt;br&gt;Terminal states are never overwritten by late or out-of-order notifications." vertex="1">
+          <mxGeometry height="42" width="600" x="-240" y="1120" as="geometry" />
+        </mxCell>
+        <mxCell id="e-129" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="Fallback: GET payment status&lt;br&gt;(payments stuck in PENDING/SUBMITTED &amp;gt; N min)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="980" y="1214" as="sourcePoint" />
+            <mxPoint x="1280" y="1214" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-130" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;defaultLabelBackgroundColor=page;" value="status">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1280" y="1254" as="sourcePoint" />
+            <mxPoint x="980" y="1254" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-131" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="Reconcile payment (same rules as webhook)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="980" y="1294" as="sourcePoint" />
+            <mxPoint x="380" y="1294" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-132" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="GET /api/v1/payments/{paymentReference}  (poll)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-220" y="1334" as="sourcePoint" />
+            <mxPoint x="80" y="1334" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-133" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;defaultLabelBackgroundColor=page;" value="{status: PENDING | SUCCEEDED | FAILED}">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="1374" as="sourcePoint" />
+            <mxPoint x="-220" y="1374" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-134" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;defaultLabelBackgroundColor=page;" target="life-acme" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-480" y="1412" as="sourcePoint" />
+            <mxPoint x="1340" y="1412" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v-135" parent="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;rounded=0;fillStyle=solid;fillColor=light-dark(#FFFFFF,#074E78);labelPosition=center;verticalLabelPosition=middle;textDirection=ltr;" value="&amp;nbsp;[3] Reverse Payment" vertex="1">
+          <mxGeometry height="30" width="200" x="-464" y="1413" as="geometry" />
+        </mxCell>
+        <mxCell id="e-136" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="Choose transaction">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-465" y="1489" as="sourcePoint" />
+            <mxPoint x="-220" y="1489" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-137" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="Click request refund():&lt;br&gt;POST /api/v1/payments/{paymentReference}/refunds&lt;br&gt;(Idempotency-Key)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-220" y="1557" as="sourcePoint" />
+            <mxPoint x="80" y="1557" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-138" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="Validate original payment is SUCCEEDED and not already refunded.&lt;br&gt;Create refund record: refundReference, linked paymentReference,&lt;br&gt;correlationId, state=REFUND_PENDING + create audit log">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="1625" as="sourcePoint" />
+            <mxPoint x="380" y="1625" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-139" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;endSize=8;rounded=0;defaultLabelBackgroundColor=page;" value="Enqueue SubmitRefund(refundReference)">
+          <mxGeometry relative="1" x="0.4" y="5" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="80" y="1665" as="sourcePoint" />
+            <mxPoint x="680" y="1665" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-140" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;defaultLabelBackgroundColor=page;" value="return refund response json:&lt;br&gt;(refundReference, status=REFUND_PENDING)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="1719" as="sourcePoint" />
+            <mxPoint x="-220" y="1719" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-141" edge="1" parent="1" source="life-worker" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;endSize=8;rounded=0;defaultLabelBackgroundColor=page;" value="Deliver SubmitRefund()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="1759" as="sourcePoint" />
+            <mxPoint x="679.38" y="1791.54" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-142" edge="1" parent="1" source="life-worker" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="POST refund (acmePaymentId,&lt;br&gt;Idempotency-Key = refund correlationId)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="980" y="1813" as="sourcePoint" />
+            <mxPoint x="1280" y="1813" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-143" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;defaultLabelBackgroundColor=page;" target="life-worker" value="202 {acmeRefundId}">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1280" y="1853" as="sourcePoint" />
+            <mxPoint x="980" y="1853" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-144" edge="1" parent="1" source="life-worker" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="Update refund: acmeRefundId,&lt;br&gt;state=REFUND_SUBMITTED + create audit log">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="980" y="1907" as="sourcePoint" />
+            <mxPoint x="380" y="1907" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-145" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;endSize=8;rounded=0;defaultLabelBackgroundColor=page;" value="Refund Notification Webhook&lt;br&gt;(eventId, acmeRefundId, status, eventTimestamp)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1280" y="1961" as="sourcePoint" />
+            <mxPoint x="80" y="1961" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-146" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;defaultLabelBackgroundColor=page;" value="200 OK">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="2001" as="sourcePoint" />
+            <mxPoint x="1280" y="2001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-147" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="Reconcile refund (dedupe by eventId, state-machine guarded):&lt;br&gt;REFUNDED | REFUND_FAILED + create audit log">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="2055" as="sourcePoint" />
+            <mxPoint x="380" y="2055" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-148" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="GET /api/v1/payments/{paymentReference}/refunds/{refundReference}  (poll)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-220" y="2095" as="sourcePoint" />
+            <mxPoint x="80" y="2095" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-149" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;defaultLabelBackgroundColor=page;" value="return refund reference + status">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="2135" as="sourcePoint" />
+            <mxPoint x="-220" y="2135" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKIQSCNNdLEmrYlWEJN5-1" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="36" width="380" x="-225" y="129" as="geometry" />
+        </mxCell>
+        <mxCell id="v-105" parent="KKIQSCNNdLEmrYlWEJN5-1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;" value="" vertex="1">
+          <mxGeometry height="30" width="10" y="4" as="geometry" />
+        </mxCell>
+        <mxCell id="e-106" edge="1" parent="KKIQSCNNdLEmrYlWEJN5-1" style="html=1;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="45" y="8" />
+              <mxPoint x="45" y="30" />
+            </Array>
+            <mxPoint x="10" y="8" as="sourcePoint" />
+            <mxPoint x="10" y="30" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v-107" parent="KKIQSCNNdLEmrYlWEJN5-1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;rounded=0;" value="Create PaymentIntent():&lt;br&gt;generate idempotencyKey (UUID)" vertex="1">
+          <mxGeometry height="36" width="330" x="50" as="geometry" />
+        </mxCell>
+        <mxCell id="KKIQSCNNdLEmrYlWEJN5-6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;edgeStyle=sequenceEdgeStyle;libavoidRouting=0;curved=0;rounded=0;defaultLabelBackgroundColor=page;" target="life-app" value="return status 409 (conflict)">
+          <mxGeometry relative="1" x="0.0649" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="-70.25" y="458" />
+            </Array>
+            <mxPoint x="80" y="458" as="sourcePoint" />
+            <mxPoint y="458" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKIQSCNNdLEmrYlWEJN5-18" edge="1" parent="1" source="life-api" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=sequenceEdgeStyle;libavoidRouting=0;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;defaultLabelBackgroundColor=page;fontColor=light-dark(#DEDEDE,#FFFFFF);" target="KKIQSCNNdLEmrYlWEJN5-17" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;Lookup customer and sub-merchant()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="213.4375" y="225" />
+            </Array>
+            <mxPoint x="80" y="222.625" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKIQSCNNdLEmrYlWEJN5-19" edge="1" parent="1" source="KKIQSCNNdLEmrYlWEJN5-17" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;edgeStyle=sequenceEdgeStyle;libavoidRouting=0;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;defaultLabelBackgroundColor=page;" target="life-api" value="return">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="213.4375" y="257" />
+            </Array>
+            <mxPoint x="80" y="259.375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKIQSCNNdLEmrYlWEJN5-22" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=sequenceEdgeStyle;libavoidRouting=0;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;defaultLabelBackgroundColor=page;" value="Create payment record (this done before calling Acme):&lt;br&gt;state=PENDING, paymentReference, correlationId,&lt;br&gt;customerId, subMerchantId, created_date">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="82" y="330.005" as="sourcePoint" />
+            <mxPoint x="378" y="332.38" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1KHJ_HPrgXDVBGw_tYzL-1" edge="1" parent="1" style="html=1;verticalAlign=bottom;startArrow=oval;startFill=1;endArrow=block;startSize=8;edgeStyle=sequenceEdgeStyle;libavoidRouting=0;curved=0;rounded=0;defaultLabelBackgroundColor=page;" target="life-db" value="create audit log for payment()">
+          <mxGeometry relative="1" width="60" x="0.0017" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="110" y="360" />
+            </Array>
+            <mxPoint x="80" y="360" as="sourcePoint" />
+            <mxPoint x="140" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1KHJ_HPrgXDVBGw_tYzL-2" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="36" width="380" x="76" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="KKIQSCNNdLEmrYlWEJN5-3" parent="1KHJ_HPrgXDVBGw_tYzL-2" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;" value="" vertex="1">
+          <mxGeometry height="30" width="10" y="4" as="geometry" />
+        </mxCell>
+        <mxCell id="KKIQSCNNdLEmrYlWEJN5-4" edge="1" parent="1KHJ_HPrgXDVBGw_tYzL-2" style="html=1;endArrow=block;endFill=1;rounded=0;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="45" y="8" />
+              <mxPoint x="45" y="30" />
+            </Array>
+            <mxPoint x="10" y="8" as="sourcePoint" />
+            <mxPoint x="10" y="30" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKIQSCNNdLEmrYlWEJN5-5" parent="1KHJ_HPrgXDVBGw_tYzL-2" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;rounded=0;" value="[idempotency key exists]" vertex="1">
+          <mxGeometry height="36" width="330" x="50" as="geometry" />
+        </mxCell>
+        <mxCell id="1KHJ_HPrgXDVBGw_tYzL-6" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="80" width="305" x="80" y="413" as="geometry" />
+        </mxCell>
+        <mxCell id="1KHJ_HPrgXDVBGw_tYzL-3" parent="1KHJ_HPrgXDVBGw_tYzL-6" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;sequenceEdgeStyle&quot;,&quot;libavoidRouting&quot;:0,&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="" vertex="1">
+          <mxGeometry height="31" width="10" x="295" as="geometry" />
+        </mxCell>
+        <mxCell id="1KHJ_HPrgXDVBGw_tYzL-4" edge="1" parent="1KHJ_HPrgXDVBGw_tYzL-6" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=sequenceEdgeStyle;libavoidRouting=0;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;defaultLabelBackgroundColor=page;" target="1KHJ_HPrgXDVBGw_tYzL-3" value="Fetch payment by correlationId + customerId()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="5" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1KHJ_HPrgXDVBGw_tYzL-5" edge="1" parent="1KHJ_HPrgXDVBGw_tYzL-6" source="1KHJ_HPrgXDVBGw_tYzL-3" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;edgeStyle=sequenceEdgeStyle;libavoidRouting=0;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;defaultLabelBackgroundColor=page;" value="return">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="27" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1KHJ_HPrgXDVBGw_tYzL-7" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;defaultLabelBackgroundColor=page;" target="life-acme" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-464" y="370" as="sourcePoint" />
+            <mxPoint x="1356" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1KHJ_HPrgXDVBGw_tYzL-8" parent="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;rounded=0;fillStyle=solid;fillColor=light-dark(#FFFFFF,#074E78);labelPosition=center;verticalLabelPosition=middle;textDirection=ltr;" value="&amp;nbsp;[1a] Idempotency Key Exists" vertex="1">
+          <mxGeometry height="30" width="200" x="-464" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="1KHJ_HPrgXDVBGw_tYzL-9" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;defaultLabelBackgroundColor=page;" target="life-acme" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-464" y="474" as="sourcePoint" />
+            <mxPoint x="1356" y="474" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

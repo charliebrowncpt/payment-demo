@@ -1,0 +1,6 @@
+@AcmePay_HostAddress = http://localhost:5070
+
+GET {{AcmePay_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
