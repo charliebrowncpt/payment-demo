@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Primitives;
 using PaymentsDemo.Api.Shared.Utilities;
 using PaymentsDemo.Api.Shared.Responses;
-using PaymentsDemo.Api.Infrastructure.Data.Domain;
 using PaymentsDemo.Api.Infrastructure.Data;
 using PaymentsDemo.Api.Features.Cards.Endpoints.Responses;
+using PaymentsDemo.Api.Features.Cards.Infrastructure.Domain.Models;
 
 namespace PaymentsDemo.Api.Features.Cards.Endpoints;
 
@@ -65,7 +65,7 @@ public class CreateCardRequestValidator : Validator<CreateCardCommand>
 
 file static class Mapper
 {
-    public static CardDetail MapToCardDomainPoco(CreateCardCommand source) => new(
+    public static BankCard MapToCardDomainPoco(CreateCardCommand source) => new(
         cardNumber: source.CardNumber,
         nameOnCard: source.NameOnCard,
         cvc: source.Cvc,
@@ -99,7 +99,7 @@ public class CreateCardEndpoint(
         }
 
         var cardFingerprint = req.GenerateToken();
-        var dbCard = await dbContext.CardDetails.FirstOrDefaultAsync(c => c.CardToken == cardFingerprint, ct);
+        var dbCard = await dbContext.BankCards.FirstOrDefaultAsync(c => c.CardToken == cardFingerprint, ct);
 
         if (dbCard is not null)
         {

@@ -1,4 +1,4 @@
-namespace PaymentsDemo.Api.Infrastructure.Data.Domain.ValueObjects;
+namespace PaymentsDemo.Api.Infrastructure.Data.Domain.Models.ValueObjects;
 
 public record ContactDetailValueObject(
     Guid Id,

@@ -20,6 +20,7 @@ public class ExceptionFilter : IExceptionHandler
                 path = httpContext.Request.Path.Value,
                 traceId = Activity.Current?.Id ?? httpContext.TraceIdentifier
             }, cancellationToken);
+            
             return true;
         }
         return false;
