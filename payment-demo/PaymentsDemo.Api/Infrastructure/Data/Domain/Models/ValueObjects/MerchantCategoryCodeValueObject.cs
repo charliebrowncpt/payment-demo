@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
 namespace PaymentsDemo.Api.Infrastructure.Data.Domain.Models.ValueObjects;
 
 /// Acme MerchantCategoryCode: exactly four digits.
@@ -14,3 +16,8 @@ public sealed record MerchantCategoryCodeValueObject
         return new MerchantCategoryCodeValueObject(raw);
     }
 }
+
+public sealed class MerchantCategoryCodeConverter() : ValueConverter<MerchantCategoryCodeValueObject, string>(
+    v => v.Value,
+    v => MerchantCategoryCodeValueObject.Create(v)
+);

@@ -9,8 +9,6 @@ public sealed record AddressValueObject
     public string RegionCode { get; private init; } = string.Empty;   // e.g. WC
     public string CountryCode { get; private init; } = string.Empty;  // ISO 3166-1 alpha-2, e.g. ZA
 
-    private AddressValueObject() { } // EF Core
-
     public AddressValueObject(string city, string regionCode, string countryCode)
     {
         var c = city?.Trim().ToUpperInvariant() ?? string.Empty;

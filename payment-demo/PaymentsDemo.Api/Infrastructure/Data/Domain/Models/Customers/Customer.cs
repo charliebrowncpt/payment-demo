@@ -49,9 +49,9 @@ public class Customer
             cardNumber: cardNumber,
             nameOnCard: nameOnCard,
             cvc: cvc,
-            expiresOnDay: 1,
-            expiresOnMonth: expiryMonth,
-            expiresOnYear: expiryYear,
+            ExpiryDay: 1,
+            ExpiryMonth: expiryMonth,
+            ExpiryYear: expiryYear,
             cardStatus: BankCardStatus.Active,
             createdBy: createdBy
         );

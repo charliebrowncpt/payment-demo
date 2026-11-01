@@ -10,7 +10,7 @@ public class BankCardEntityConfiguration : IEntityTypeConfiguration<BankCard>
     {
         builder.ToTable("BankCards", "payments", t =>
         {
-            t.HasCheckConstraint("CK_BankCards_ExpiryMonth", "\"ExpiryOnMonth\" BETWEEN 1 AND 12");
+            t.HasCheckConstraint("CK_BankCards_ExpiryMonth", "\"expiry_month\" BETWEEN 1 AND 12");
         });
 
         builder.HasKey(c => c.Id);
@@ -24,10 +24,10 @@ public class BankCardEntityConfiguration : IEntityTypeConfiguration<BankCard>
         builder.Property(c => c.Cvc).IsRequired().HasMaxLength(4);
 
 
-        builder.Property(c => c.ExpiresOnDay).IsRequired();
-        builder.Property(c => c.ExpiresOnMonth).IsRequired();
-        builder.Property(c => c.ExpiresOnYear).IsRequired();
-        builder.Property(c => c.IsActive).IsRequired();
+        builder.Property(c => c.ExpiryDay).IsRequired();
+        builder.Property(c => c.ExpiryMonth).IsRequired();
+        builder.Property(c => c.ExpiryYear).IsRequired();
+        builder.Property(c => c.CardStatus).IsRequired();
         builder.Property(c => c.CreatedOnUTC).IsRequired();
         builder.Property(c => c.CreatedBy).IsRequired();
 
@@ -37,7 +37,7 @@ public class BankCardEntityConfiguration : IEntityTypeConfiguration<BankCard>
             .HasDatabaseName("UX_BankCards_CardToken");
 
         // Lookup used at payment time: a customer's active cards
-        builder.HasIndex(c => new { c.CustomerId, c.IsActive })
+        builder.HasIndex(c => new { c.CustomerId, c.CardStatus })
             .HasDatabaseName("IX_BankCards_Customer_Active");
     }
 }

@@ -1,10 +1,12 @@
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
 namespace PaymentsDemo.Api.Infrastructure.Data.Domain.Models.ValueObjects;
 
 /// Shown on the cardholder's statement. Max 19 characters, because FNB positions 1–23
 /// hold "ZAP*" plus the name.
 public sealed record TradingNameValueObject
 {
-    public static readonly int MaxLength = CardAcceptorNameValueObject.NameWidth - (CardAcceptorNameValueObject.FacilitatorPrefix.Length + 1);
+    public static readonly int MaxLength = CardAcceptorName.NameWidth - (CardAcceptorName.FacilitatorPrefix.Length + 1);
 
     public string Value { get; }
     private TradingNameValueObject(string value) => Value = value;
@@ -22,3 +24,8 @@ public sealed record TradingNameValueObject
         return new TradingNameValueObject(value);
     }
 }
+
+public sealed class TradingAsConverter() : ValueConverter<TradingNameValueObject, string>(
+    v => v.Value,
+    v => TradingNameValueObject.Create(v)
+);

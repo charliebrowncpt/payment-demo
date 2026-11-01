@@ -10,9 +10,9 @@ public class BankCard
 
     public string CardNumber { get; private set; } = string.Empty;
     public string Cvc { get; private set; } = string.Empty;
-    public int ExpiresOnDay { get; private set; }
-    public int ExpiresOnMonth { get; private set; }
-    public int ExpiresOnYear { get; private set; }
+    public int ExpiryDay { get; private set; }
+    public int ExpiryMonth { get; private set; }
+    public int ExpiryYear { get; private set; }
 
     public BankCardStatus CardStatus { get; private set; }
 
@@ -35,9 +35,9 @@ public class BankCard
         string cardNumber,
         string nameOnCard,
         string cvc,
-        int expiresOnDay,
-        int expiresOnMonth,
-        int expiresOnYear,
+        int ExpiryDay,
+        int ExpiryMonth,
+        int ExpiryYear,
         BankCardStatus cardStatus,
         Guid createdBy)
     {
@@ -48,15 +48,15 @@ public class BankCard
         CardNumber = cardNumber;
         NameOnCard = nameOnCard;
         Cvc = cvc;
-        ExpiresOnDay = expiresOnDay;
-        ExpiresOnMonth = expiresOnMonth;
-        ExpiresOnYear = expiresOnYear;
+        ExpiryDay = ExpiryDay;
+        ExpiryMonth = ExpiryMonth;
+        ExpiryYear = ExpiryYear;
         CardStatus = cardStatus;
 
         CreatedBy = createdBy;
         CreatedOnUTC = DateTimeOffset.UtcNow;
 
-        string hash = $"{Cvc}|{ExpiresOnYear}_{NameOnCard}|_^_{ExpiresOnMonth}@{CardNumber}^_^";
+        string hash = $"{Cvc}|{ExpiryYear}_{NameOnCard}|_^_{ExpiryMonth}@{CardNumber}^_^";
 
         CardToken = HashGenerator.GenerateHash(hash + " (_) ");
     }

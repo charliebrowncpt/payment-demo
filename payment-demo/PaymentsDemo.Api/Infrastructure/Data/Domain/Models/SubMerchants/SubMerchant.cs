@@ -58,7 +58,7 @@ public class SubMerchant
     }
 
     /// Used by the envelope builder. Derived, so it is not persisted.
-    public CardAcceptorNameValueObject BuildCardAcceptorName() => CardAcceptorNameValueObject.From(TradingName, Address);
+    public CardAcceptorName BuildCardAcceptorName() => CardAcceptorName.From(TradingName, Address);
 
     private void Touch(Guid by)
     {

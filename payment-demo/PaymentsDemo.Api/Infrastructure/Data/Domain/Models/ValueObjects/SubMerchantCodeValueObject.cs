@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace PaymentsDemo.Api.Infrastructure.Data.Domain.Models.ValueObjects;
 
@@ -7,8 +8,8 @@ public sealed record SubMerchantCodeValueObject
 {
     public const int MaxLength = 15;
 
-    public string Value { get; }
-    private SubMerchantCodeValueObject(string value) => Value = value;
+    public Guid Value { get; }
+    private SubMerchantCodeValueObject(Guid value) => Value = value;
 
     public static SubMerchantCodeValueObject Create(Guid? raw) =>
         TryCreate(raw, out var code)
@@ -17,16 +18,18 @@ public sealed record SubMerchantCodeValueObject
 
     public static bool TryCreate(Guid? raw, [NotNullWhen(true)] out SubMerchantCodeValueObject? code)
     {
-        var value = raw?.ToString()?.Trim().ToUpperInvariant();
-        if (string.IsNullOrEmpty(value) || value.Length > MaxLength || !value.All(char.IsAsciiLetterOrDigit))
+        if (raw == null)
         {
             code = null;
             return false;
         }
 
-        code = new SubMerchantCodeValueObject(value);
+        code = new SubMerchantCodeValueObject(raw.Value);
         return true;
     }
-
-    public override string ToString() => Value;
 }
+
+public sealed class SubMerchantCodeConverter() : ValueConverter<SubMerchantCodeValueObject, Guid>(
+    v => v.Value,
+    v => SubMerchantCodeValueObject.Create(v)
+);

@@ -4,7 +4,7 @@ using PaymentsDemo.Api.Infrastructure.Data.Domain.Models.ValueObjects;
 
 namespace PaymentsDemo.Api.Features.Payments.Endpoints.SubmitPayment;
 
-public sealed class SubmitPaymentRequest
+public sealed class CreatePaymentIntent
 {
     [FromHeader("X-Idempotency-Key")]
     public Guid IdempotencyKey { get; init; }
@@ -20,7 +20,7 @@ public sealed class SubmitPaymentRequest
     public long Amount { get; init; }
 }
 
-public sealed class SubmitPaymentValidator : Validator<SubmitPaymentRequest>
+public sealed class SubmitPaymentValidator : Validator<CreatePaymentIntent>
 {
     public SubmitPaymentValidator()
     {
@@ -30,7 +30,8 @@ public sealed class SubmitPaymentValidator : Validator<SubmitPaymentRequest>
         // Absent is fine and the endpoint generates one. Present must be a valid GUID.
         // An empty header counts as present, so it fails.
         RuleFor(x => x.CorrelationId)
-            .Must(id => id is null || Guid.TryParse(id, out _))
+            .NotEmpty()
+            .When(x => x.CorrelationId.HasValue)
             .WithMessage("X-Api-CorrelationId must be a GUID when supplied.");
 
         RuleFor(x => x.CustomerId).NotEmpty();

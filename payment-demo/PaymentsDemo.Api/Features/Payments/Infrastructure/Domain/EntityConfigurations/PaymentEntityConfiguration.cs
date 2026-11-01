@@ -12,14 +12,13 @@ public class PaymentEntityConfiguration : IEntityTypeConfiguration<Payment>
     {
         builder.ToTable("Payments", "payments", t =>
         {
-            t.HasCheckConstraint("CK_Payments_Amount_Positive", "\"Amount\" > 0");
-            t.HasCheckConstraint("CK_Payments_Refunded_Range", "\"RefundedAmount\" >= 0");
+            t.HasCheckConstraint("CK_Payments_Amount_Positive", "\"amount\" > 0");
+            t.HasCheckConstraint("CK_Payments_Refunded_Range", "\"refunded_amount\" >= 0");
         });
 
         builder.HasKey(p => p.Id);
         builder.Property(p => p.Id).ValueGeneratedNever(); // we assign the Guid ourselves
 
-        // Caller-supplied identifiers. Max lengths follow Acme's field limits.
         builder.Property(p => p.CustomerId).IsRequired();
         builder.Property(p => p.CardId).IsRequired();
 

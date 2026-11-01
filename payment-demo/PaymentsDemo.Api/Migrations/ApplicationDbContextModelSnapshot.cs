@@ -22,10 +22,9 @@ namespace PaymentsDemo.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PaymentsDemo.Infrastructure.Domain.CardDetail", b =>
+            modelBuilder.Entity("PaymentsDemo.Api.Features.Cards.Infrastructure.Domain.Models.BankCard", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
@@ -34,68 +33,261 @@ namespace PaymentsDemo.Api.Migrations
                         .HasColumnType("text")
                         .HasColumnName("card_number");
 
+                    b.Property<int>("CardStatus")
+                        .HasColumnType("integer")
+                        .HasColumnName("card_status");
+
                     b.Property<string>("CardToken")
-                        .HasColumnType("text")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)")
                         .HasColumnName("card_token");
 
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid")
                         .HasColumnName("created_by");
 
-                    b.Property<DateTimeOffset>("CreatedUTC")
+                    b.Property<DateTimeOffset>("CreatedOnUTC")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_utc");
+                        .HasColumnName("created_on_utc");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasMaxLength(50)
+                        .HasColumnType("uuid")
+                        .HasColumnName("customer_id");
 
                     b.Property<string>("Cvc")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(4)
+                        .HasColumnType("character varying(4)")
                         .HasColumnName("cvc");
 
-                    b.Property<int>("ExpiresOnDay")
+                    b.Property<int>("ExpiryDay")
                         .HasColumnType("integer")
-                        .HasColumnName("expires_on_day");
+                        .HasColumnName("expiry_day");
 
-                    b.Property<int>("ExpiresOnMonth")
+                    b.Property<int>("ExpiryMonth")
                         .HasColumnType("integer")
-                        .HasColumnName("expires_on_month");
+                        .HasColumnName("expiry_month");
 
-                    b.Property<int>("ExpiresOnYear")
+                    b.Property<int>("ExpiryYear")
                         .HasColumnType("integer")
-                        .HasColumnName("expires_on_year");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_active");
+                        .HasColumnName("expiry_year");
 
                     b.Property<string>("NameOnCard")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
                         .HasColumnName("name_on_card");
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasColumnType("uuid")
                         .HasColumnName("updated_by");
 
-                    b.Property<DateTimeOffset?>("UpdatedUTC")
+                    b.Property<DateTimeOffset?>("UpdatedOnUTC")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_utc");
+                        .HasColumnName("updated_on_utc");
 
                     b.HasKey("Id")
-                        .HasName("pk_card_details");
+                        .HasName("pk_bank_cards");
 
-                    b.ToTable("card_details", (string)null);
+                    b.HasIndex("CardToken")
+                        .IsUnique()
+                        .HasDatabaseName("UX_BankCards_CardToken");
+
+                    b.HasIndex("CustomerId", "CardStatus")
+                        .HasDatabaseName("IX_BankCards_Customer_Active");
+
+                    b.ToTable("BankCards", "payments", t =>
+                        {
+                            t.HasCheckConstraint("CK_BankCards_ExpiryMonth", "\"expiry_month\" BETWEEN 1 AND 12");
+                        });
                 });
 
-            modelBuilder.Entity("PaymentsDemo.Infrastructure.Domain.Customer", b =>
+            modelBuilder.Entity("PaymentsDemo.Api.Features.Payments.Infrastructure.Domain.Models.Payment", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<string>("CardToken")
+                    b.Property<string>("AcmeEnvelopeJson")
+                        .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("card_token");
+                        .HasColumnName("acme_envelope_json");
+
+                    b.Property<string>("AcmeResponseCode")
+                        .HasMaxLength(3)
+                        .HasColumnType("character varying(3)")
+                        .HasColumnName("acme_response_code");
+
+                    b.Property<long>("Amount")
+                        .HasColumnType("bigint")
+                        .HasColumnName("amount");
+
+                    b.Property<long?>("AuthAmount")
+                        .HasColumnType("bigint")
+                        .HasColumnName("auth_amount");
+
+                    b.Property<string>("AuthCode")
+                        .HasMaxLength(6)
+                        .HasColumnType("character varying(6)")
+                        .HasColumnName("auth_code");
+
+                    b.Property<Guid>("CardId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("card_id");
+
+                    b.Property<Guid>("CorrelationId")
+                        .HasMaxLength(36)
+                        .HasColumnType("uuid")
+                        .HasColumnName("correlation_id");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("customer_id");
+
+                    b.Property<DateTimeOffset?>("EnqueuedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("enqueued_at_utc");
+
+                    b.Property<Guid>("IdempotencyKey")
+                        .HasMaxLength(36)
+                        .HasColumnType("uuid")
+                        .HasColumnName("idempotency_key")
+                        .IsFixedLength();
+
+                    b.Property<string>("OrderNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("order_number");
+
+                    b.Property<string>("ReconId")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("recon_id");
+
+                    b.Property<long>("RefundedAmount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
+                        .HasColumnName("refunded_amount");
+
+                    b.Property<string>("RequestHash")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character(64)")
+                        .HasColumnName("request_hash")
+                        .IsFixedLength();
+
+                    b.Property<string>("RetrievalReferenceNumber")
+                        .IsRequired()
+                        .HasMaxLength(12)
+                        .HasColumnType("character(12)")
+                        .HasColumnName("retrieval_reference_number")
+                        .IsFixedLength();
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("status");
+
+                    b.Property<Guid>("SubMerchantCode")
+                        .HasMaxLength(15)
+                        .HasColumnType("uuid")
+                        .HasColumnName("sub_merchant_code");
+
+                    b.Property<Guid>("TransactionId")
+                        .HasMaxLength(50)
+                        .HasColumnType("uuid")
+                        .HasColumnName("transaction_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_payments");
+
+                    b.HasIndex("IdempotencyKey")
+                        .IsUnique()
+                        .HasDatabaseName("UX_Payments_IdempotencyKey");
+
+                    b.HasIndex("RetrievalReferenceNumber")
+                        .IsUnique()
+                        .HasDatabaseName("UX_Payments_RetrievalReferenceNumber");
+
+                    b.HasIndex("SubMerchantCode")
+                        .HasDatabaseName("ix_payments_sub_merchant_code");
+
+                    b.HasIndex("TransactionId")
+                        .IsUnique()
+                        .HasDatabaseName("UX_Payments_TransactionId");
+
+                    b.HasIndex("CardId", "Status")
+                        .HasDatabaseName("IX_Payments_Card_Status");
+
+                    b.HasIndex("CustomerId", "CreatedAtUtc")
+                        .HasDatabaseName("IX_Payments_Customer_CreatedAt");
+
+                    b.ToTable("Payments", "payments", t =>
+                        {
+                            t.HasCheckConstraint("CK_Payments_Amount_Positive", "\"amount\" > 0");
+
+                            t.HasCheckConstraint("CK_Payments_Refunded_Range", "\"refunded_amount\" >= 0");
+                        });
+                });
+
+            modelBuilder.Entity("PaymentsDemo.Api.Features.Payments.Infrastructure.Domain.Models.PaymentAdjustment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<long>("Amount")
+                        .HasColumnType("bigint")
+                        .HasColumnName("amount");
+
+                    b.Property<string>("EventId")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("event_id");
+
+                    b.Property<Guid>("PaymentId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("payment_id");
+
+                    b.Property<DateTimeOffset>("ReceivedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("received_at_utc");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id")
+                        .HasName("pk_payment_adjustments");
+
+                    b.HasIndex("PaymentId", "EventId")
+                        .IsUnique()
+                        .HasDatabaseName("UX_PaymentAdjustments_Payment_Event");
+
+                    b.ToTable("PaymentAdjustments", "payments", t =>
+                        {
+                            t.HasCheckConstraint("CK_PaymentAdjustments_Amount_Positive", "\"amount\" > 0");
+                        });
+                });
+
+            modelBuilder.Entity("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.Customers.Customer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasMaxLength(50)
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<Guid>("ContactInformationId")
                         .HasColumnType("uuid")
@@ -105,13 +297,9 @@ namespace PaymentsDemo.Api.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("created_by");
 
-                    b.Property<DateTimeOffset>("CreatedUTC")
+                    b.Property<DateTimeOffset>("CreatedOnUtc")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_utc");
-
-                    b.Property<DateTimeOffset>("ExpiryDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("expiry_date");
+                        .HasColumnName("created_on_utc");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean")
@@ -122,18 +310,13 @@ namespace PaymentsDemo.Api.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
-                    b.Property<string>("NameOnCard")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name_on_card");
-
                     b.Property<Guid?>("UpdatedBy")
                         .HasColumnType("uuid")
                         .HasColumnName("updated_by");
 
-                    b.Property<DateTimeOffset?>("UpdatedUTC")
+                    b.Property<DateTimeOffset?>("UpdatedOnUtc")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_utc");
+                        .HasColumnName("updated_on_utc");
 
                     b.HasKey("Id")
                         .HasName("pk_customers");
@@ -141,13 +324,12 @@ namespace PaymentsDemo.Api.Migrations
                     b.HasIndex("ContactInformationId")
                         .HasDatabaseName("ix_customers_contact_information_id");
 
-                    b.ToTable("customers", (string)null);
+                    b.ToTable("Customers", "payments");
                 });
 
-            modelBuilder.Entity("PaymentsDemo.Infrastructure.Domain.Merchant", b =>
+            modelBuilder.Entity("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.Merchants.Merchant", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
@@ -155,34 +337,97 @@ namespace PaymentsDemo.Api.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("created_by");
 
-                    b.Property<DateTimeOffset>("CreatedUTC")
+                    b.Property<DateTimeOffset>("CreatedOnUtc")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_utc");
+                        .HasColumnName("created_on_utc");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_active");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("LegalName")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("legal_name");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("status");
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasColumnType("uuid")
                         .HasColumnName("updated_by");
 
-                    b.Property<DateTimeOffset?>("UpdatedUTC")
+                    b.Property<DateTimeOffset?>("UpdatedOnUtc")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_utc");
+                        .HasColumnName("updated_on_utc");
 
                     b.HasKey("Id")
                         .HasName("pk_merchants");
 
-                    b.ToTable("merchants", (string)null);
+                    b.ToTable("Merchants", "payments");
                 });
 
-            modelBuilder.Entity("PaymentsDemo.Infrastructure.Domain.ValueObjects.ContactDetailValueObject", b =>
+            modelBuilder.Entity("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.SubMerchants.SubMerchant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("Code")
+                        .HasMaxLength(15)
+                        .HasColumnType("uuid")
+                        .HasColumnName("code");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by");
+
+                    b.Property<DateTimeOffset>("CreatedOnUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_on_utc");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("MerchantCategoryCode")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("character(4)")
+                        .HasColumnName("merchant_category_code")
+                        .IsFixedLength();
+
+                    b.Property<Guid>("MerchantId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("merchant_id");
+
+                    b.Property<string>("TradingName")
+                        .IsRequired()
+                        .HasMaxLength(19)
+                        .HasColumnType("character varying(19)")
+                        .HasColumnName("trading_name");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by");
+
+                    b.Property<DateTimeOffset?>("UpdatedOnUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_on_utc");
+
+                    b.HasKey("Id")
+                        .HasName("pk_sub_merchants");
+
+                    b.HasAlternateKey("Code")
+                        .HasName("ak_sub_merchants_code");
+
+                    b.HasIndex("MerchantId")
+                        .HasDatabaseName("ix_sub_merchants_merchant_id");
+
+                    b.ToTable("SubMerchants", "payments");
+                });
+
+            modelBuilder.Entity("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.ValueObjects.ContactDetailValueObject", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -205,9 +450,40 @@ namespace PaymentsDemo.Api.Migrations
                     b.ToTable("contact_detail_value_object", (string)null);
                 });
 
-            modelBuilder.Entity("PaymentsDemo.Infrastructure.Domain.Customer", b =>
+            modelBuilder.Entity("PaymentsDemo.Api.Features.Cards.Infrastructure.Domain.Models.BankCard", b =>
                 {
-                    b.HasOne("PaymentsDemo.Infrastructure.Domain.ValueObjects.ContactDetailValueObject", "ContactInformation")
+                    b.HasOne("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.Customers.Customer", null)
+                        .WithMany("Cards")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_bank_cards_customers_customer_id");
+                });
+
+            modelBuilder.Entity("PaymentsDemo.Api.Features.Payments.Infrastructure.Domain.Models.Payment", b =>
+                {
+                    b.HasOne("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.SubMerchants.SubMerchant", null)
+                        .WithMany()
+                        .HasForeignKey("SubMerchantCode")
+                        .HasPrincipalKey("Code")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_payments_sub_merchants_sub_merchant_code");
+                });
+
+            modelBuilder.Entity("PaymentsDemo.Api.Features.Payments.Infrastructure.Domain.Models.PaymentAdjustment", b =>
+                {
+                    b.HasOne("PaymentsDemo.Api.Features.Payments.Infrastructure.Domain.Models.Payment", null)
+                        .WithMany("Adjustments")
+                        .HasForeignKey("PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_payment_adjustments_payments_payment_id");
+                });
+
+            modelBuilder.Entity("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.Customers.Customer", b =>
+                {
+                    b.HasOne("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.ValueObjects.ContactDetailValueObject", "ContactInformation")
                         .WithMany()
                         .HasForeignKey("ContactInformationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -215,6 +491,69 @@ namespace PaymentsDemo.Api.Migrations
                         .HasConstraintName("fk_customers_contact_detail_value_object_contact_information_id");
 
                     b.Navigation("ContactInformation");
+                });
+
+            modelBuilder.Entity("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.SubMerchants.SubMerchant", b =>
+                {
+                    b.HasOne("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.Merchants.Merchant", null)
+                        .WithMany("SubMerchants")
+                        .HasForeignKey("MerchantId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_sub_merchants_merchants_merchant_id");
+
+                    b.OwnsOne("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.ValueObjects.AddressValueObject", "Address", b1 =>
+                        {
+                            b1.Property<Guid>("SubMerchantId")
+                                .HasColumnType("uuid")
+                                .HasColumnName("id");
+
+                            b1.Property<string>("City")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("character varying(50)")
+                                .HasColumnName("AddressCity");
+
+                            b1.Property<string>("CountryCode")
+                                .IsRequired()
+                                .HasMaxLength(2)
+                                .HasColumnType("character(2)")
+                                .HasColumnName("AddressCountryCode")
+                                .IsFixedLength();
+
+                            b1.Property<string>("RegionCode")
+                                .IsRequired()
+                                .HasMaxLength(2)
+                                .HasColumnType("character(2)")
+                                .HasColumnName("AddressRegionCode")
+                                .IsFixedLength();
+
+                            b1.HasKey("SubMerchantId");
+
+                            b1.ToTable("SubMerchants", "payments");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SubMerchantId")
+                                .HasConstraintName("fk_sub_merchants_sub_merchants_id");
+                        });
+
+                    b.Navigation("Address")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PaymentsDemo.Api.Features.Payments.Infrastructure.Domain.Models.Payment", b =>
+                {
+                    b.Navigation("Adjustments");
+                });
+
+            modelBuilder.Entity("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.Customers.Customer", b =>
+                {
+                    b.Navigation("Cards");
+                });
+
+            modelBuilder.Entity("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.Merchants.Merchant", b =>
+                {
+                    b.Navigation("SubMerchants");
                 });
 #pragma warning restore 612, 618
         }

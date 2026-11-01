@@ -4,38 +4,29 @@ using System.Text.Json.Serialization;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 using Microsoft.Extensions.Options;
-using PaymentsDemo.Api.Features.Payments.Endpoints.SubmitPayment;
 using PaymentsDemo.Api.Api.Infrastructure.Configuration;
-using PaymentsDemo.Api.Shared.Requests;
+using PaymentsDemo.Api.Features.Payments.Infrastructure.Domain.Models;
 
 namespace PaymentsDemo.Api.Infrastructure.Services.AcmeService;
 
-public interface IAcmeService
+public interface IAcmeQueueService
 {
-    Task<HttpStatusCode> SubmitPaymentAsync(PaymentIntent paymentIntent, CancellationToken ct);
+    Task<HttpStatusCode> SubmitPaymentAsync(Payment paymentIntentMessage, CancellationToken ct);
 }
 
-public class AcmeService(IAmazonSQS queueClient, IOptions<AwsConfig> awsConfig) : IAcmeService
+public class AcmeQueueService(IAmazonSQS queueClient, IOptions<AwsConfig> awsConfig) : IAcmeQueueService
 {
-    private static readonly JsonSerializerOptions WriteOpts = new()
+    public async Task<HttpStatusCode> SubmitPaymentAsync(Payment paymentIntentMessage, CancellationToken ct)
     {
-        PropertyNamingPolicy = null,                                  // PascalCase out
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull, // omit unset optionals
-    };
-
-    public async Task<HttpStatusCode> SubmitPaymentAsync(PaymentIntent paymentIntent, CancellationToken ct)
-    {
-        PaymentEnvelope<PaymentIntent> envelope = new(
-            new MessageHeader(
-                MessageDateTime: DateTimeOffset.UtcNow.AddHours(2).ToString("yyyy-MM-dd'T'HH:mm:ss.fff"), // SAST, no offset
-                MessageId: Guid.NewGuid().ToString(),// unique per message
-                Channel: "Web"
-            ),
-        paymentIntent);
-
         var queueUrlResponse = await queueClient.GetQueueUrlAsync(awsConfig.Value.AcmePaymentServiceIntentQueueName, ct);
 
-        var message = new SendMessageRequest(queueUrlResponse.QueueUrl, JsonSerializer.Serialize(envelope));
+        var message = new SendMessageRequest(
+            queueUrlResponse.QueueUrl, 
+            JsonSerializer.Serialize(paymentIntentMessage, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = null,                                  // PascalCase out
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull, // omit unset optionals
+            }));
 
         await queueClient.SendMessageAsync(message, ct);
 

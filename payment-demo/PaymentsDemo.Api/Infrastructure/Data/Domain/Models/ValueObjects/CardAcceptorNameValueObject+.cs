@@ -1,7 +1,7 @@
 namespace PaymentsDemo.Api.Infrastructure.Data.Domain.Models.ValueObjects;
 
 /// The 40-character FNB descriptor, read by position. Computed, never stored.
-public sealed record CardAcceptorNameValueObject
+public sealed record CardAcceptorName
 {
     public const string FacilitatorPrefix = "ZAP";
     public const int NameWidth = 23;   // positions 1–23
@@ -11,9 +11,9 @@ public sealed record CardAcceptorNameValueObject
     public const int Length = NameWidth + CityWidth + RegionWidth + CountryWidth;
 
     public string Value { get; }
-    private CardAcceptorNameValueObject(string value) => Value = value;
+    private CardAcceptorName(string value) => Value = value;
 
-    public static CardAcceptorNameValueObject From(TradingNameValueObject tradingName, AddressValueObject address)
+    public static CardAcceptorName From(TradingNameValueObject tradingName, AddressValueObject address)
     {
         var name = $"{FacilitatorPrefix}*{tradingName.Value}".PadRight(NameWidth);
         var city = address.City.Length > CityWidth ? address.City[..CityWidth] : address.City;
@@ -28,6 +28,6 @@ public sealed record CardAcceptorNameValueObject
         if (value.Length != Length)
             throw new InvalidOperationException($"CardAcceptorName must be {Length} characters, was {value.Length}.");
 
-        return new CardAcceptorNameValueObject(value);
+        return new CardAcceptorName(value);
     }
 }

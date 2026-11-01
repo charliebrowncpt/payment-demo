@@ -10,7 +10,7 @@ public class PaymentAdjustmentEntityConfiguration : IEntityTypeConfiguration<Pay
     {
         builder.ToTable("PaymentAdjustments", "payments", t =>
         {
-            t.HasCheckConstraint("CK_PaymentAdjustments_Amount_Positive", "\"Amount\" > 0");
+            t.HasCheckConstraint("CK_PaymentAdjustments_Amount_Positive", "\"amount\" > 0");
         });
 
         builder.HasKey(a => a.Id);

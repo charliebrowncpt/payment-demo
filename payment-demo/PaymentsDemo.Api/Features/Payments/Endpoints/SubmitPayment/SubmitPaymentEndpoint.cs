@@ -11,14 +11,15 @@ using PaymentsDemo.Api.Infrastructure.Acme;
 using PaymentsDemo.Api.Infrastructure.Data;
 using PaymentsDemo.Api.Infrastructure.Data.Domain;
 using PaymentsDemo.Api.Infrastructure.Data.Domain.Models.ValueObjects;
+using PaymentsDemo.Api.Infrastructure.Services.AcmeService;
 
 namespace PaymentsDemo.Api.Features.Payments.Endpoints.SubmitPayment;
 
 public sealed class SubmitPaymentEndpoint(
     ApplicationDbContext db,
-    IAmazonSQS queueClient,
+    IAcmeQueueService acmeQueueService,
     AcmeServiceEnvelopeBuilder envelopes,
-    ILogger<SubmitPaymentEndpoint> logger) : Endpoint<SubmitPaymentRequest>
+    ILogger<SubmitPaymentEndpoint> logger) : Endpoint<CreatePaymentIntent>
 {
     private static readonly TimeSpan SastOffset = TimeSpan.FromHours(2);
 
@@ -42,7 +43,7 @@ public sealed class SubmitPaymentEndpoint(
         });
     }
 
-    public override async Task HandleAsync(SubmitPaymentRequest req, CancellationToken ct)
+    public override async Task HandleAsync(CreatePaymentIntent req, CancellationToken ct)
     {
         // The validator has already rejected a malformed header. Null means "not supplied".
         Guid correlationId = req.CorrelationId ?? Guid.NewGuid();
@@ -61,8 +62,7 @@ public sealed class SubmitPaymentEndpoint(
         // Guard 1: idempotency. A stored key replays its payment, and no other check is re-run,
         // so a payment already made can't change because a card expired afterwards.
         // Tracked on purpose: the replay path may mark the payment as enqueued.
-        var existing = await db.Payments
-            .FirstOrDefaultAsync(p => p.IdempotencyKey == req.IdempotencyKey, ct);
+        var existing = await db.Payments.FirstOrDefaultAsync(p => p.IdempotencyKey == req.IdempotencyKey, ct);
 
         if (existing is not null)
         {
@@ -82,7 +82,7 @@ public sealed class SubmitPaymentEndpoint(
                 c.ContactInformation.EmailAddress,
                 c.Cards
                     .Where(k => k.Id == req.CardId && k.CardStatus == BankCardStatus.Active)
-                    .Select(k => new CardLookup(k.CardToken!, k.ExpiresOnMonth, k.ExpiresOnYear))
+                    .Select(k => new CardLookup(k.CardToken!, k.ExpiryMonth, k.ExpiryYear))
                     .FirstOrDefault()))
             .FirstOrDefaultAsync(ct);
 
@@ -226,7 +226,7 @@ public sealed class SubmitPaymentEndpoint(
         // retry after the queue was down. Anything else is just reported, never published again.
         var needsPublish = payment.Status == PaymentStatus.Pending && payment.EnqueuedAtUtc is null;
 
-        if (needsPublish && !await TryEnqueueAsync(payment, correlationId, ct))
+        if (needsPublish && !await TryEnqueueAsync(payment, ct))
         {
             HttpContext.Response.Headers["Retry-After"] = "5";
             await ErrorAsync(
@@ -242,21 +242,21 @@ public sealed class SubmitPaymentEndpoint(
 
         HttpContext.Response.Headers["Location"] = $"/api/v1/payments/{payment.Id}";
 
-        await SendJsonAsync(new SubmitPaymentResponse(
-            payment.Id,
-            payment.Status.ToString(),
-            payment.TransactionId,correlationId
+        await SendJsonAsync(
+            new SubmitPaymentResponse(
+                payment.Id,
+                payment.Status.ToString(),
+                payment.TransactionId,correlationId
             ),
-            202,
-            ct
-        );
+        202,
+        ct);
     }
 
-    private async Task<bool> TryEnqueueAsync(Payment payment, Guid correlationId, CancellationToken ct)
+    private async Task<bool> TryEnqueueAsync(Payment payment, CancellationToken ct)
     {
         try
         {
-            await queue.PublishAsync(payment.AcmeEnvelopeJson, correlationId, ct);
+            await acmeQueueService.SubmitPaymentAsync(payment, ct);
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
@@ -285,7 +285,7 @@ public sealed class SubmitPaymentEndpoint(
         (card.ExpiryYear == today.Year && card.ExpiryMonth < today.Month);
 
     // Covers the body fields only. A different correlation ID on a retry is not a different request.
-    private static string ComputeRequestHash(SubmitPaymentRequest r, SubMerchantCodeValueObject code)
+    private static string ComputeRequestHash(CreatePaymentIntent r, SubMerchantCodeValueObject code)
     {
         var canonical = $"{r.CustomerId:D}|{r.CardId:D}|{code.Value}|{r.Amount}";
         return Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(canonical)));
