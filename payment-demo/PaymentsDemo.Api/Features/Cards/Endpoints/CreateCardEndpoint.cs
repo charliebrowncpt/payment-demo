@@ -77,7 +77,7 @@ file static class Mapper
     );
 }
 
-public class CreateCommandEndpoint(
+public class CreateCardEndpoint(
     ApplicationDbContext dbContext,
     LinkGenerator linkGenerator,
     HateOasResponseBuilder hateOasBuilder) : Endpoint<CreateCardCommand>
