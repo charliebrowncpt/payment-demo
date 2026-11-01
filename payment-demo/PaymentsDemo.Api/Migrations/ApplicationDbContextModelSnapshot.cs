@@ -289,10 +289,6 @@ namespace PaymentsDemo.Api.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<Guid>("ContactInformationId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("contact_information_id");
-
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid")
                         .HasColumnName("created_by");
@@ -320,9 +316,6 @@ namespace PaymentsDemo.Api.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_customers");
-
-                    b.HasIndex("ContactInformationId")
-                        .HasDatabaseName("ix_customers_contact_information_id");
 
                     b.ToTable("Customers", "payments");
                 });
@@ -427,29 +420,6 @@ namespace PaymentsDemo.Api.Migrations
                     b.ToTable("SubMerchants", "payments");
                 });
 
-            modelBuilder.Entity("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.ValueObjects.ContactDetailValueObject", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("EmailAddress")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("email_address");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("phone_number");
-
-                    b.HasKey("Id")
-                        .HasName("pk_contact_detail_value_object");
-
-                    b.ToTable("contact_detail_value_object", (string)null);
-                });
-
             modelBuilder.Entity("PaymentsDemo.Api.Features.Cards.Infrastructure.Domain.Models.BankCard", b =>
                 {
                     b.HasOne("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.Customers.Customer", null)
@@ -483,14 +453,34 @@ namespace PaymentsDemo.Api.Migrations
 
             modelBuilder.Entity("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.Customers.Customer", b =>
                 {
-                    b.HasOne("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.ValueObjects.ContactDetailValueObject", "ContactInformation")
-                        .WithMany()
-                        .HasForeignKey("ContactInformationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_customers_contact_detail_value_object_contact_information_id");
+                    b.OwnsOne("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.ValueObjects.ContactDetailValueObject", "ContactInformation", b1 =>
+                        {
+                            b1.Property<Guid>("CustomerId")
+                                .HasColumnType("uuid")
+                                .HasColumnName("id");
 
-                    b.Navigation("ContactInformation");
+                            b1.Property<string>("EmailAddress")
+                                .IsRequired()
+                                .HasMaxLength(320)
+                                .HasColumnType("character varying(320)")
+                                .HasColumnName("email_address");
+
+                            b1.Property<string>("PhoneNumber")
+                                .HasMaxLength(32)
+                                .HasColumnType("character varying(32)")
+                                .HasColumnName("phone_number");
+
+                            b1.HasKey("CustomerId");
+
+                            b1.ToTable("Customers", "payments");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CustomerId")
+                                .HasConstraintName("fk_customers_customers_id");
+                        });
+
+                    b.Navigation("ContactInformation")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PaymentsDemo.Api.Infrastructure.Data.Domain.Models.SubMerchants.SubMerchant", b =>

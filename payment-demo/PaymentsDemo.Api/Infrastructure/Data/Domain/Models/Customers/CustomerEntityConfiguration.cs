@@ -21,5 +21,19 @@ public class CustomerEntityConfiguration : IEntityTypeConfiguration<Customer>
             .WithOne()
             .HasForeignKey(c => c.CustomerId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.OwnsOne(c => c.ContactInformation, contact =>
+        {
+            contact.Property(p => p.EmailAddress)
+                .HasColumnName("email_address")
+                .HasMaxLength(320)
+                .IsRequired();
+
+            contact.Property(p => p.PhoneNumber)
+                .HasColumnName("phone_number")
+                .HasMaxLength(32);
+        });
+
+        builder.Navigation(c => c.ContactInformation).IsRequired();
     }
 }
