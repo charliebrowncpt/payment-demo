@@ -5,4 +5,5 @@ public record ResponseDetail(
     string Code,                    // max 3 on payment responses ("PEND"/"COMPL" are the EFT exceptions)
     string? Source = null,          // Acquirer | EFT | 3DSecure | Application
     string? Description = null,     // max 50
-    string? ClientMessage = null);  // max 100, safe to show a cardholder
+    string? ClientMessage = null
+);  // max 100, safe to show a cardholder

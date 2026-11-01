@@ -1,10 +1,14 @@
 using System.Reflection;
+using Amazon;
+using Amazon.SQS;
 using FastEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using PaymentDemo.Infrastructure.Data;
 using PaymentDemo.Infrastructure.Http.Exceptions;
 using PaymentDemo.Shared.Responses;
+using PaymentsDemo.Api.Infrastructure.Configuration;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +28,38 @@ builder.Services.AddScoped<HateOasResponseBuilder>();
 
 builder.Services.AddExceptionHandler<ExceptionFilter>()
                 .AddProblemDetails();
+
+
+//Config options
+builder.Services.AddOptions<AcmePayServiceOptions>()
+                .Bind(builder.Configuration.GetSection("AcmePaymentService"))
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
+
+builder.Services.AddOptions<AwsConfig>()
+                .Bind(builder.Configuration.GetSection("AWS"))
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
+
+//AWS Configuration
+
+builder.Services.AddScoped<IAmazonSQS>(sp =>
+{
+    var awsConfig = sp.GetRequiredService<IOptions<AwsConfig>>().Value;
+
+     var config = new AmazonSQSConfig
+    {
+        RegionEndpoint = RegionEndpoint.GetBySystemName(awsConfig.Region)
+    };
+
+    if (awsConfig.UseLocalStack && !string.IsNullOrEmpty(awsConfig.ServiceUrl))
+    {
+        config.ServiceURL = awsConfig.ServiceUrl;
+        config.UseHttp = true;
+    }
+
+    return new AmazonSQSClient(config);
+});
 
 var app = builder.Build();
 

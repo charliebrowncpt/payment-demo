@@ -4,6 +4,7 @@
   </Folder>
 
   <Folder Name="/payment-demo/">
+    <Project Path="payment-demo/PaymentsDemo.AcmeServiceMessageRelay/PaymentsDemo.AcmeServiceMessageRelay.csproj" />
     <Project Path="payment-demo/PaymentsDemo.Api/PaymentDemo.csproj" />
     <Project Path="payment-demo/PaymentsDemo.Tests/PaymentsDemo.Tests.csproj" />
   </Folder>

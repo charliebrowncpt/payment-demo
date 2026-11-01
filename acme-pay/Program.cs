@@ -15,6 +15,7 @@ builder.Services.AddEndpointsApiExplorer()
                 .AddAuthentication();
 
 builder.Services.AddSingleton<InMemoryPaymentStore>();
+builder.Services.AddScoped<IssuerSimulator>();
 
 var app = builder.Build();
 
