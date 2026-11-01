@@ -1,5 +1,5 @@
-using PaymentDemo.Shared.Responses;
+using PaymentsDemo.Api.Shared.Responses;
 
-namespace PaymentDemo.Cards.Endpoints.Responses;
+namespace PaymentsDemo.Api.Features.Cards.Endpoints.Responses;
 
 public record CardResponse(Guid Id, string Token, IReadOnlyList<Link> Links);

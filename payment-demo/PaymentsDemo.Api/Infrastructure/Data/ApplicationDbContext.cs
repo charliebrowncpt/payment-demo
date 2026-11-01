@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using PaymentDemo.Infrastructure.Domain;
+using PaymentsDemo.Api.Infrastructure.Data.Domain;
 
-namespace PaymentDemo.Infrastructure.Data;
+namespace PaymentsDemo.Api.Infrastructure.Data;
 
 public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {

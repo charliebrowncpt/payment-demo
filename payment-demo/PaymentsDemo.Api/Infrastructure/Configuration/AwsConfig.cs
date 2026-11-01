@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PaymentsDemo.Api.Infrastructure.Configuration;
+namespace PaymentsDemo.Api.Api.Infrastructure.Configuration;
 public class AwsConfig
 {
     [Required] public required string Region { get; init; }

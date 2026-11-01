@@ -1,4 +1,4 @@
-namespace PaymentDemo.Infrastructure.Domain;
+namespace PaymentsDemo.Api.Infrastructure.Data.Domain;
 
 public class Merchant
 {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PaymentsDemo.Api.Infrastructure.Configuration;
+namespace PaymentsDemo.Api.Api.Infrastructure.Configuration;
 public class AcmePayServiceOptions
 {
      [Required] public required string BaseUrl { get; init;}

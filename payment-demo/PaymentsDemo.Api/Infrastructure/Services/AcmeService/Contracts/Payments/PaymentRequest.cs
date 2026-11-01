@@ -1,3 +1,5 @@
+using PaymentsDemo.Api.Infrastructure.Services.AcmeService.Contracts.Payments;
+
 namespace PaymentsDemo.Api.Infrastructure.Services.AcmeService.Contracts.Payments;
 
 public record PaymentRequest(

@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace PaymentDemo.Shared.Utilities;
+namespace PaymentsDemo.Api.Shared.Utilities;
 
 public static class HashGenerator
 {

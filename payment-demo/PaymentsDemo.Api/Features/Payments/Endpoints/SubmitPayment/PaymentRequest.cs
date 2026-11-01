@@ -1,7 +1,7 @@
 using FastEndpoints;
 using FluentValidation;
 
-namespace PaymentDemo.Features.Payments.Endpoints.SubmitPayment;
+namespace PaymentsDemo.Api.Features.Payments.Endpoints.SubmitPayment;
 
 public record PaymentIntent(
     Guid CustomerId,

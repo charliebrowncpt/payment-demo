@@ -1,4 +1,4 @@
-namespace PaymentsDemo.Features.Payments.Endpoints;
+namespace PaymentsDemo.Api.Features.Payments.Endpoints.SubmitPayment;
 
 public static class RouteConstants
 {

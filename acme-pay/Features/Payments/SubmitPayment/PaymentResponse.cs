@@ -30,10 +30,3 @@ public record PaymentResponseEnvelope(MessageHeader MessageHeader, PaymentRespon
             response
         );
 }
-
-public record ResponseDetail(
-    string Code,                    // max 3 on payment responses ("PEND"/"COMPL" are the EFT exceptions)
-    string? Source = null,          // Acquirer | EFT | 3DSecure | Application
-    string? Description = null,     // max 50
-    string? ClientMessage = null
-); 

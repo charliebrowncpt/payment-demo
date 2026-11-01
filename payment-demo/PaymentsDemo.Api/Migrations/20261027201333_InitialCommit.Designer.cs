@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using PaymentDemo.Infrastructure.Data;
+using PaymentsDemo.Api.Infrastructure.Data;
 
 #nullable disable
 
-namespace payment_demo.Migrations
+namespace PaymentsDemo.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20261027201333_InitialCommit")]
@@ -25,7 +25,7 @@ namespace payment_demo.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PaymentDemo.Infrastructure.Domain.CardDetail", b =>
+            modelBuilder.Entity("PaymentsDemo.Infrastructure.Domain.CardDetail", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,7 +89,7 @@ namespace payment_demo.Migrations
                     b.ToTable("card_details", (string)null);
                 });
 
-            modelBuilder.Entity("PaymentDemo.Infrastructure.Domain.Customer", b =>
+            modelBuilder.Entity("PaymentsDemo.Infrastructure.Domain.Customer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -147,7 +147,7 @@ namespace payment_demo.Migrations
                     b.ToTable("customers", (string)null);
                 });
 
-            modelBuilder.Entity("PaymentDemo.Infrastructure.Domain.Merchant", b =>
+            modelBuilder.Entity("PaymentsDemo.Infrastructure.Domain.Merchant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -185,7 +185,7 @@ namespace payment_demo.Migrations
                     b.ToTable("merchants", (string)null);
                 });
 
-            modelBuilder.Entity("PaymentDemo.Infrastructure.Domain.ValueObjects.ContactDetailValueObject", b =>
+            modelBuilder.Entity("PaymentsDemo.Infrastructure.Domain.ValueObjects.ContactDetailValueObject", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -208,9 +208,9 @@ namespace payment_demo.Migrations
                     b.ToTable("contact_detail_value_object", (string)null);
                 });
 
-            modelBuilder.Entity("PaymentDemo.Infrastructure.Domain.Customer", b =>
+            modelBuilder.Entity("PaymentsDemo.Infrastructure.Domain.Customer", b =>
                 {
-                    b.HasOne("PaymentDemo.Infrastructure.Domain.ValueObjects.ContactDetailValueObject", "ContactInformation")
+                    b.HasOne("PaymentsDemo.Infrastructure.Domain.ValueObjects.ContactDetailValueObject", "ContactInformation")
                         .WithMany()
                         .HasForeignKey("ContactInformationId")
                         .OnDelete(DeleteBehavior.Cascade)

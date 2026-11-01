@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PaymentsDemo.Api\PaymentDemo.csproj" />
+    <ProjectReference Include="..\PaymentsDemo.Api\PaymentsDemo.csproj" />
   </ItemGroup>
 
 </Project>

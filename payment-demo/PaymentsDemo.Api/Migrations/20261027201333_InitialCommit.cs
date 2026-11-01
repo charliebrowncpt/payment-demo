@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace payment_demo.Migrations
+namespace PaymentsDemo.Api.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCommit : Migration

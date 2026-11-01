@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using FastEndpoints;
 
-namespace PaymentDemo.Shared.Responses;
+namespace PaymentsDemo.Api.Shared.Responses;
 
 public record Link(HrefRelation Relation, Http HttpVerb, string Href);
 

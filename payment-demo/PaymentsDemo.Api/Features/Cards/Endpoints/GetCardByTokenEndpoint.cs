@@ -1,13 +1,13 @@
 using FastEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PaymentDemo.Cards.Endpoints.Responses;
-using PaymentDemo.Infrastructure.Data;
-using PaymentDemo.Infrastructure.Domain;
-using PaymentDemo.Infrastructure.Extensions;
-using PaymentDemo.Shared.Responses;
+using PaymentsDemo.Api.Features.Cards.Endpoints.Responses;
+using PaymentsDemo.Api.Infrastructure.Data;
+using PaymentsDemo.Api.Infrastructure.Data.Domain;
+using PaymentsDemo.Api.Infrastructure.Extensions;
+using PaymentsDemo.Api.Shared.Responses;
 
-namespace PaymentDemo.Cards.Endpoints;
+namespace PaymentsDemo.Api.Features.Cards.Endpoints;
 
 public record GetCardByTokenRequest([FromRoute] string Token);
 

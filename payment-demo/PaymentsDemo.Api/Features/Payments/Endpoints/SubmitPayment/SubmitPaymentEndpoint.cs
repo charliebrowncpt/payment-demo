@@ -1,12 +1,10 @@
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using FastEndpoints;
-using PaymentDemo.Infrastructure.Data;
+using PaymentsDemo.Api.Infrastructure.Data;
 using PaymentsDemo.Api.Infrastructure.Services.AcmeService;
 using PaymentsDemo.Api.Shared.Responses;
-using PaymentsDemo.Features.Payments.Endpoints;
 
-namespace PaymentDemo.Features.Payments.Endpoints.SubmitPayment;
+namespace PaymentsDemo.Api.Features.Payments.Endpoints.SubmitPayment;
 
 public sealed class SubmitPaymentEndpoint(
     ApplicationDbContext db,
@@ -28,7 +26,7 @@ public sealed class SubmitPaymentEndpoint(
 
     public override async Task HandleAsync(PaymentIntent req, CancellationToken ct)
     {
-        var (statusCode, paymentResponse) = await acmeService.SubmitPaymentAsync(req, ct);
+        var statusCode = await acmeService.SubmitPaymentAsync(req, ct);
 
         await Send.StringAsync(JsonSerializer.Serialize(paymentResponse), (int)statusCode, "application/json", ct);
     }

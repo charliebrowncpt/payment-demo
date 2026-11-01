@@ -1,4 +1,4 @@
-namespace PaymentDemo.Infrastructure.Exceptions;
+namespace PaymentsDemo.Api.Infrastructure.Exceptions;
 
 public class NotFoundException : Exception
 {

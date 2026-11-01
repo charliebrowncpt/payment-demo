@@ -1,11 +1,8 @@
 using System.Diagnostics;
-using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using PaymentDemo.Infrastructure.Exceptions;
+using PaymentsDemo.Api.Infrastructure.Exceptions;
 
-namespace PaymentDemo.Infrastructure.Http.Exceptions;
+namespace PaymentsDemo.Api.Infrastructure.HttpFilters;
 
 public class ExceptionFilter : IExceptionHandler
 {

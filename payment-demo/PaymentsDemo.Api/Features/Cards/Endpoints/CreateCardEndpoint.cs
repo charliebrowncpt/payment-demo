@@ -3,13 +3,13 @@ using FastEndpoints;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Primitives;
-using PaymentDemo.Cards.Endpoints.Responses;
-using PaymentDemo.Infrastructure.Data;
-using PaymentDemo.Infrastructure.Domain;
-using PaymentDemo.Shared.Responses;
-using PaymentDemo.Shared.Utilities;
+using PaymentsDemo.Api.Shared.Utilities;
+using PaymentsDemo.Api.Shared.Responses;
+using PaymentsDemo.Api.Infrastructure.Data.Domain;
+using PaymentsDemo.Api.Infrastructure.Data;
+using PaymentsDemo.Api.Features.Cards.Endpoints.Responses;
 
-namespace PaymentDemo.Cards.Endpoints;
+namespace PaymentsDemo.Api.Features.Cards.Endpoints;
 
 public record CreateCardCommand
 {

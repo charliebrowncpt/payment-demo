@@ -2,13 +2,12 @@ using System.Reflection;
 using Amazon;
 using Amazon.SQS;
 using FastEndpoints;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using PaymentDemo.Infrastructure.Data;
-using PaymentDemo.Infrastructure.Http.Exceptions;
-using PaymentDemo.Shared.Responses;
-using PaymentsDemo.Api.Infrastructure.Configuration;
+using PaymentsDemo.Api.Api.Infrastructure.Configuration;
+using PaymentsDemo.Api.Infrastructure.Data;
+using PaymentsDemo.Api.Infrastructure.HttpFilters;
+using PaymentsDemo.Api.Shared.Responses;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);

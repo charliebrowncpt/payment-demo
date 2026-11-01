@@ -4,8 +4,8 @@ using System.Text.Json.Serialization;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 using Microsoft.Extensions.Options;
-using PaymentDemo.Features.Payments.Endpoints.SubmitPayment;
-using PaymentsDemo.Api.Infrastructure.Configuration;
+using PaymentsDemo.Api.Features.Payments.Endpoints.SubmitPayment;
+using PaymentsDemo.Api.Api.Infrastructure.Configuration;
 using PaymentsDemo.Api.Shared.Requests;
 
 namespace PaymentsDemo.Api.Infrastructure.Services.AcmeService;

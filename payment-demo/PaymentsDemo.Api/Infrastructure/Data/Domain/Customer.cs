@@ -1,6 +1,6 @@
-namespace PaymentDemo.Infrastructure.Domain;
+namespace PaymentsDemo.Api.Infrastructure.Data.Domain;
 
-using PaymentDemo.Infrastructure.Domain.ValueObjects;
+using PaymentsDemo.Api.Infrastructure.Data.Domain.ValueObjects;
 
 public class Customer
 {

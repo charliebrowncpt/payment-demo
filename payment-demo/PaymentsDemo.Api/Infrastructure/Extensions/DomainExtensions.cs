@@ -1,6 +1,6 @@
-using PaymentDemo.Infrastructure.Exceptions;
+using PaymentsDemo.Api.Infrastructure.Exceptions;
 
-namespace PaymentDemo.Infrastructure.Extensions;
+namespace PaymentsDemo.Api.Infrastructure.Extensions;
 
 public static class DomainExtensions
 {
